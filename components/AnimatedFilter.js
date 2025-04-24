@@ -1,26 +1,94 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Animated, TouchableOpacity, Text, ScrollView, StyleSheet } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
+import { useNavigation, useRoute, useFocusEffect } from '@react-navigation/native';
 
 const AnimatedFilter = ({ filterAnimation }) => {
   const { colors } = useTheme();
+  const navigation = useNavigation();
+  const route = useRoute();
+  const [activeFilter, setActiveFilter] = useState('');
+
+  // Set initial active filter and update when route changes
+  useEffect(() => {
+    updateActiveFilterFromRoute(route.name);
+  }, [route.name]);
+
+  // Helper function to determine active filter from route name
+  const updateActiveFilterFromRoute = (routeName) => {
+    if (routeName.includes('Shop')) {
+      setActiveFilter('Shop');
+    } else if (routeName.includes('Chat')) {
+      setActiveFilter('Chat');
+    } else if (routeName.includes('Inbox') || routeName.includes('Profile')) {
+      setActiveFilter('Profile');
+    }
+  };
+
+  const handleFilterPress = (screenName) => {
+    // Update active filter immediately when pressed
+    setActiveFilter(screenName);
+    // Then navigate to the screen
+    navigation.navigate(screenName);
+  };
 
   return (
-    <Animated.View 
+    <Animated.View
       style={[
         styles.filterContainer,
         { transform: [{ translateY: filterAnimation }] }
       ]}
     >
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <TouchableOpacity style={styles.filterChip}>
-          <Text style={styles.filterText}>Shop</Text>
+        <TouchableOpacity
+          style={[
+            styles.filterChip,
+            activeFilter === 'Shop' && styles.activeFilterChip
+          ]}
+          onPress={() => handleFilterPress('Shop')}
+        >
+          <Text
+            style={[
+              styles.filterText,
+              activeFilter === 'Shop' && { ...styles.activeFilterText, color: colors.primary }
+            ]}
+          >
+            Shop
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.filterChip, styles.activeFilterChip]}>
-          <Text style={[styles.activeFilterText, { color: colors.primary }]}>Talks</Text>
+       
+        <TouchableOpacity
+          style={[
+            styles.filterChip,
+            activeFilter === 'Chat' && styles.activeFilterChip
+          ]}
+          onPress={() => handleFilterPress('Chat')}
+        >
+          <Text
+            style={[
+              styles.filterText,
+              activeFilter === 'Chat' && { ...styles.activeFilterText, color: colors.primary }
+            ]}
+          >
+            Talks
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.filterChip}>
-          <Text style={styles.filterText}>Inbox</Text>
+       
+        <TouchableOpacity
+          style={[
+            styles.filterChip,
+            activeFilter === 'Inbox' && styles.activeFilterChip
+          ]}
+          onPress={() => handleFilterPress('Profile')}
+        >
+          <Text
+            style={[
+              styles.filterText,
+              activeFilter === 'Inbox' && { ...styles.activeFilterText, color: colors.primary }
+            ]}
+          >
+            Inbox
+          </Text>
         </TouchableOpacity>
       </ScrollView>
     </Animated.View>
