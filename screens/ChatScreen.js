@@ -1,13 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { 
-  View, 
-  Text, 
-  ScrollView, 
-  TouchableOpacity, 
-  StyleSheet, 
+import React, { useState, useRef } from 'react';
+import {
+  View,
   FlatList,
-  TextInput,
-  Animated 
+  StyleSheet
 } from 'react-native';
 import Header from '../components/Header';
 import Tabs from '../components/Tabs';
@@ -21,77 +16,32 @@ const ChatScreen = () => {
   const [messageText, setMessageText] = useState('');
   const { messages, toggleLike } = useMessages();
   const { colors } = useTheme();
+  const animatedFilterRef = useRef(null);
   
-  const scrollY = useRef(new Animated.Value(0)).current;
-  const lastScrollY = useRef(0);
-  const filterHeight = 50;
-  const scrollThreshold = 70;
-  
-  const filterAnimation = useRef(new Animated.Value(0)).current;
-  const pastThreshold = useRef(false);
-
-  const handleScroll = (event) => {
-    const currentScrollY = event.nativeEvent.contentOffset.y;
-    const scrollingUp = currentScrollY < lastScrollY.current;
-    const scrollingDown = currentScrollY > lastScrollY.current;
-    
-    scrollY.setValue(currentScrollY);
-    
-    if (currentScrollY <= 0) {
-      Animated.spring(filterAnimation, {
-        toValue: 0,
-        friction: 50,
-        tension: 50,
-        useNativeDriver: true
-      }).start();
-      pastThreshold.current = false;
-    } 
-    else if (currentScrollY > scrollThreshold && !pastThreshold.current) {
-      pastThreshold.current = true;
-    }
-    
-    if (pastThreshold.current) {
-      if (scrollingUp && currentScrollY > 0) {
-        Animated.spring(filterAnimation, {
-          toValue: 0,
-          friction: 50,
-          tension: 50,
-          useNativeDriver: true
-        }).start();
-      } 
-      else if (scrollingDown && currentScrollY > scrollThreshold) {
-        Animated.spring(filterAnimation, {
-          toValue: -filterHeight,
-          friction: 50,
-          tension: 0,
-          useNativeDriver: true
-        }).start();
-      }
-    }
-    
-    lastScrollY.current = currentScrollY;
-  };
-
   const handleSendMessage = (text) => {
     // Message sending logic would be implemented here
     console.log('Sending message:', text);
     setMessageText('');
   };
+  
+  // Pass the scroll event to the AnimatedFilter's handleScroll method
+  const handleScroll = (event) => {
+    if (animatedFilterRef.current && animatedFilterRef.current.handleScroll) {
+      animatedFilterRef.current.handleScroll(event);
+    }
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Header title="App" />
-      
       <Tabs />
-
-      <AnimatedFilter filterAnimation={filterAnimation} />
-
+      <AnimatedFilter ref={animatedFilterRef} />
       <FlatList
         data={messages}
         renderItem={({ item }) => (
-          <ChatBubble 
-            message={item} 
-            onLike={() => toggleLike(item.id)} 
+          <ChatBubble
+            message={item}
+            onLike={() => toggleLike(item.id)}
           />
         )}
         keyExtractor={item => item.id}
@@ -99,7 +49,6 @@ const ChatScreen = () => {
         onScroll={handleScroll}
         scrollEventThrottle={16}
       />
-
       <MessageInput
         value={messageText}
         onChangeText={setMessageText}
@@ -115,7 +64,7 @@ const styles = StyleSheet.create({
   },
   chatFeed: {
     padding: 10,
-    paddingTop: 55, // Account for the filter container height
+    paddingTop: 80, // Account for the filter container height
   },
 });
 

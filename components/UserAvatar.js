@@ -29,14 +29,14 @@ const UserAvatar = ({ uri, size = 45, showFollowButton = false }) => {
         <TouchableOpacity 
           style={[
             styles.followButton, 
-            isFollowing ? { backgroundColor: colors.primary } : { backgroundColor: '#F6F6F6' }
+            isFollowing ? { backgroundColor: colors.primary } : { backgroundColor: colors.primary }
           ]} 
           onPress={toggleFollow}
         >
           <Icon 
             name={isFollowing ? "check" : "add"} 
             size={14} 
-            color={isFollowing ? '#fff' : colors.primary} 
+            color={isFollowing ? '#fff' : 'white'} 
           />
         </TouchableOpacity>
       )}
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#fff',
+    backgroundColor: '#26a69a'
   }
 });
 

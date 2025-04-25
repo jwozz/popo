@@ -20,7 +20,7 @@ const ChatBubble = ({ message, onLike }) => {
           )}
           <View style={styles.profWrapper}>
             {!message.isOwn && (
-              <Text style={[styles.userName, { color: colors.primary }]}>
+              <Text style={[styles.userName]}>
                 {message.userName}
               </Text>
             )}            
@@ -107,7 +107,7 @@ const ChatBubble = ({ message, onLike }) => {
 
 const styles = StyleSheet.create({
   messageContainer: {
-    marginBottom: 16,
+    marginBottom: 15,
   },
   bubbleContainer: {
     alignItems: 'flex-start',
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   bubbleWrapper: {
     alignSelf: 'flex-start',
-    maxWidth: '75%',
+    maxWidth: '76%',
     position: 'relative',
   },
   ownBubbleWrapper: {
@@ -151,11 +151,15 @@ const styles = StyleSheet.create({
   },
   forwardButton: {
     justifyContent: 'center',
+    padding: 5,
+    borderRadius: 50,
     marginTop: -50,
-    marginLeft: 5,
+    right: -33,
+    top: '55%',
+    position: 'absolute',
   },
   forwardIcon: {
-    color: '#8b949e',
+    color: '#666',
     fontSize: 17
   },
   otherBubble: {
@@ -181,6 +185,7 @@ const styles = StyleSheet.create({
   userName: {
     fontWeight: 'bold',
     marginHorizontal: 8,
+    color: 'black',
   },
   timeText: {
     fontSize: 12,
@@ -192,6 +197,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     marginTop: 4,
     marginHorizontal: 8,
+    color: 'black',
   },
   mediaImage: {
     width: '100%',
@@ -205,6 +211,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginHorizontal: 8,
     marginBottom: 4,
+    color: 'black',
   },
   newEngagementBar: {
     flexDirection: 'row',
@@ -231,12 +238,12 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#FFFFFF',
+    borderWidth: 2,
+    borderColor: 'rgb(246, 246, 246)',
   },
   commentsCount: {
     fontSize: 13,
-    color: '#555555',
+    color: '#666',
   },
   reactionContainer: {
     flexDirection: 'row',
@@ -245,6 +252,7 @@ const styles = StyleSheet.create({
   likeIcon: {
     fontSize: 20,
     marginRight: 4,
+    color: '#666'
   },
   likedIcon: {
     color: '#E53935',

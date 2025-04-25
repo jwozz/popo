@@ -129,7 +129,7 @@ const MessageInput = ({ value, onChangeText, onSend }) => {
       <TouchableOpacity
         style={[
           styles.sendButton, 
-          { backgroundColor: isSendActive ? colors.primary : '#CCCCCC' }
+          { backgroundColor: isSendActive ? colors.primary : '#ddd' }
         ]}
         onPress={handleSend}
         disabled={!isSendActive}
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   inputWrapper: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'rgb(228, 228, 228)',
+    backgroundColor: 'rgba(228, 228, 228, 0)',
     borderRadius: 25,
     paddingHorizontal: 16,
     alignItems: 'center',
