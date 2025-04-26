@@ -53,10 +53,9 @@ export const styles = StyleSheet.create({
   activeCategoryText: {
     color: '#ffffff',
     fontWeight: '500',
-  },
-  sectionContainer: {
+  },sectionContainer: {
     marginVertical: 15,
-    marginTop: 5,
+    marginTop: 70,
     paddingHorizontal: 20,
     paddingRight: 0
   },
@@ -75,23 +74,23 @@ export const styles = StyleSheet.create({
     marginBottom: 30,
     borderRadius: 12,
     overflow: 'hidden',
-    backgroundColor: '#ffffff',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowColor: 'grey',
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowRadius: 2,
+    elevation: 0,
+    borderWidth: 0,
+    borderColor: '#e0e0e0',
   },
   videoContainer: {
     position: 'relative',
-    height: 250,
+    height: 400,
     width: '100%',
   },
   videoThumbnail: {
     height: '100%',
     width: '100%',
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderRadius: 12,
   },
   playButton: {
     position: 'absolute',
@@ -99,19 +98,28 @@ export const styles = StyleSheet.create({
     left: '50%',
     transform: [{ translateX: -20 }, { translateY: -20 }],
   },
-  videoInfoContainer: {
+  // Seller Overlay Styles
+  sellerOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
     padding: 12,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
   },
   sellerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
   },
   sellerAvatar: {
     width: 36,
     height: 36,
     borderRadius: 18,
     marginRight: 8,
+    borderWidth: 1,
+    borderColor: '#ffffff',
   },
   sellerInfo: {
     flex: 1,
@@ -119,41 +127,70 @@ export const styles = StyleSheet.create({
   sellerName: {
     fontSize: 14,
     fontWeight: '600',
+    color: '#ffffff',
   },
   sellerLocation: {
     fontSize: 12,
-    color: '#757575',
+    color: 'rgba(255,255,255,0.8)',
   },
-  videoProductsContainer: {
-    marginTop: 8,
+  followButton: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: '#26a69a',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  videoProductsLabel: {
-    fontSize: 13,
-    fontWeight: '500',
-    color: '#757575',
-    marginBottom: 8,
+  // Products Overlay Styles
+  productsOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 12,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
   },
   videoProductsList: {
     paddingRight: 10,
   },
   videoProductItem: {
-    width: 50,
+    width: 80,
     marginRight: 8,
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    borderRadius: 8,
+    padding: 6,
   },
   videoProductThumbnail: {
-    width: 50,
+    width: '100%',
     height: 50,
-    borderRadius: 8,
+    borderRadius: 6,
     marginBottom: 4,
+  },
+  productInfoContainer: {
+    flex: 1,
   },
   videoProductName: {
     fontSize: 12,
     fontWeight: '500',
+    marginBottom: 4,
+  },
+  priceAddContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   videoProductPrice: {
     fontSize: 12,
     color: '#26a69a',
     fontWeight: '600',
+  },
+  addToCartButton: {
+    borderRadius: 10,
+    backgroundColor: '#26a69a',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   // Regular Product Card Styles
   productCard: {
