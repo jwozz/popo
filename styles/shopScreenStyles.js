@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
@@ -53,7 +54,8 @@ export const styles = StyleSheet.create({
   activeCategoryText: {
     color: '#ffffff',
     fontWeight: '500',
-  },sectionContainer: {
+  },
+  sectionContainer: {
     marginVertical: 15,
     marginTop: 70,
     paddingHorizontal: 20,
@@ -64,32 +66,39 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 15,
   },
-  productsRow: {
-    paddingRight: 20,
-  },
-  // Video Card Styles
-  videoCard: {
-    width: 270,
+  cardWrapper: {
     marginRight: 20,
-    marginBottom: 30,
+    // Width will be set dynamically
+  },
+  videoCard: {
     borderRadius: 12,
     overflow: 'hidden',
     shadowColor: 'grey',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.1,
     shadowRadius: 2,
-    elevation: 0,
-    borderWidth: 0,
-    borderColor: '#e0e0e0',
+    elevation: 2,
   },
   videoContainer: {
     position: 'relative',
-    height: 400,
+    height: '100%',
     width: '100%',
   },
   videoThumbnail: {
     height: '100%',
     width: '100%',
+    borderRadius: 12,
+  },
+  blurredThumbnail: {
+    opacity: 0.9,
+  },
+  blurOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(255,255,255,0.15)',
     borderRadius: 12,
   },
   playButton: {
@@ -98,27 +107,27 @@ export const styles = StyleSheet.create({
     left: '50%',
     transform: [{ translateX: -20 }, { translateY: -20 }],
   },
-  // Seller Overlay Styles
   sellerOverlay: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     padding: 12,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(0,0,0,0.4)',
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
   },
   sellerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 8,
   },
   sellerAvatar: {
     width: 36,
     height: 36,
     borderRadius: 18,
     marginRight: 8,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#ffffff',
   },
   sellerInfo: {
@@ -131,24 +140,29 @@ export const styles = StyleSheet.create({
   },
   sellerLocation: {
     fontSize: 12,
-    color: 'rgba(255,255,255,0.8)',
+    color: '#e0e0e0',
   },
   followButton: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
     backgroundColor: '#26a69a',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  // Products Overlay Styles
+  followText: {
+    color: '#ffffff',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  
   productsOverlay: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
     padding: 12,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(0,0,0,0.4)',
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
   },
@@ -156,42 +170,85 @@ export const styles = StyleSheet.create({
     paddingRight: 10,
   },
   videoProductItem: {
-    width: 80,
-    marginRight: 8,
-    backgroundColor: 'rgba(255,255,255,0.9)',
+    flexDirection: 'row',
+    // Removed backgroundColor for floating effect
     borderRadius: 8,
     padding: 6,
+    marginRight: 8,
+    width: 180,
   },
   videoProductThumbnail: {
-    width: '100%',
+    width: 50,
     height: 50,
     borderRadius: 6,
-    marginBottom: 4,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.4)', // Light border for visibility
   },
-  productInfoContainer: {
+  productDetails: {
     flex: 1,
+    marginLeft: 8,
+    justifyContent: 'space-between',
   },
   videoProductName: {
     fontSize: 12,
-    fontWeight: '500',
-    marginBottom: 4,
+    fontWeight: '600',
+    color: '#ffffff',
   },
-  priceAddContainer: {
+  priceActionContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   videoProductPrice: {
     fontSize: 12,
-    color: '#26a69a',
+    color: '#ffffff',
     fontWeight: '600',
   },
   addToCartButton: {
-    borderRadius: 10,
     backgroundColor: '#26a69a',
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  // Updated card footer styles with fixed width
+  cardFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 4,
+    // Width will be set dynamically to match card width exactly
+  },
+  footerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  profileThumbnails: {
+    flexDirection: 'row',
+    marginRight: 8,
+    width: 46, // To account for overlap
+  },
+  commentThumbnail: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    borderWidth: 1.5,
+    borderColor: '#ffffff',
+  },
+  commentThumbnailOverlap: {
+    marginLeft: -10,
+  },
+  commentCount: {
+    fontSize: 12,
+    color: '#666666',
+  },
+  reactionButton: {
+    padding: 5,
+  },
+
+  
   // Regular Product Card Styles
   productCard: {
     width: 170,
