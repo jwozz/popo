@@ -55,6 +55,7 @@ export const styles = StyleSheet.create({
     color: '#ffffff',
     fontWeight: '500',
   },
+// Updated styles for the shopScreenStyles.js file
   sectionContainer: {
     marginVertical: 15,
     marginTop: 70,
@@ -68,7 +69,9 @@ export const styles = StyleSheet.create({
   },
   cardWrapper: {
     marginRight: 20,
-    // Width will be set dynamically
+    alignItems: 'center',
+    paddingVertical: 10,
+    transformOrigin: 'center center',
   },
   videoCard: {
     borderRadius: 12,
@@ -81,16 +84,11 @@ export const styles = StyleSheet.create({
   },
   videoContainer: {
     position: 'relative',
-    height: '100%',
     width: '100%',
+    height: '100%',
   },
   videoThumbnail: {
-    height: '100%',
-    width: '100%',
     borderRadius: 12,
-  },
-  blurredThumbnail: {
-    opacity: 0.9,
   },
   blurOverlay: {
     position: 'absolute',
@@ -106,6 +104,7 @@ export const styles = StyleSheet.create({
     top: '50%',
     left: '50%',
     transform: [{ translateX: -20 }, { translateY: -20 }],
+    zIndex: 10,
   },
   sellerOverlay: {
     position: 'absolute',
@@ -116,6 +115,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.4)',
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
+    zIndex: 5,
   },
   sellerContainer: {
     flexDirection: 'row',
@@ -165,39 +165,65 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.4)',
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
+    zIndex: 5,
   },
   videoProductsList: {
     paddingRight: 10,
   },
   videoProductItem: {
-    flexDirection: 'row',
-    // Removed backgroundColor for floating effect
+    flexDirection: 'column', // Changed to column to stack reply input
     borderRadius: 8,
     padding: 6,
     marginRight: 8,
     width: 180,
   },
+  productImageContainer: {
+    position: 'relative',
+    marginBottom: 8,
+  },
   videoProductThumbnail: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.4)', // Light border for visibility
+    borderColor: 'rgba(255,255,255,0.4)',
+  },
+  replyIndicator: {
+    position: 'absolute',
+    bottom: -4,
+    right: -4,
+    backgroundColor: 'rgba(38, 166, 154, 0.8)',
+    borderRadius: 10,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  replyCount: {
+    color: '#ffffff',
+    fontSize: 10,
+    fontWeight: '600',
+    marginRight: 3,
   },
   productDetails: {
-    flex: 1,
-    marginLeft: 8,
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    flex: 1,
+    flexWrap: 'wrap',
   },
   videoProductName: {
     fontSize: 12,
     fontWeight: '600',
     color: '#ffffff',
+    width: '100%',
+    marginBottom: 6,
   },
   priceActionContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    width: '100%',
   },
   videoProductPrice: {
     fontSize: 12,
@@ -212,14 +238,41 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  // Updated card footer styles with fixed width
+  productReplyContainer: {
+    marginTop: 6,
+    width: '100%',
+    paddingTop: 6,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255,255,255,0.1)',
+  },
+  replyInputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderRadius: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+  },
+  closeReplyButton: {
+    padding: 2,
+  },
+  replyPlaceholder: {
+    flex: 1,
+    fontSize: 10,
+    color: 'rgba(255,255,255,0.6)',
+    marginHorizontal: 6,
+  },
+  sendReplyButton: {
+    padding: 2,
+  },
   cardFooter: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 8,
     paddingHorizontal: 4,
-    // Width will be set dynamically to match card width exactly
+    width: '100%',
+    marginTop: 6,
   },
   footerLeft: {
     flexDirection: 'row',
@@ -228,7 +281,7 @@ export const styles = StyleSheet.create({
   profileThumbnails: {
     flexDirection: 'row',
     marginRight: 8,
-    width: 46, // To account for overlap
+    width: 46,
   },
   commentThumbnail: {
     width: 28,
@@ -243,6 +296,16 @@ export const styles = StyleSheet.create({
   commentCount: {
     fontSize: 12,
     color: '#666666',
+  },
+  reactionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  likesCount: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#666666',
+    marginRight: 4,
   },
   reactionButton: {
     padding: 5,
