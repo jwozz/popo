@@ -5,13 +5,13 @@ import { Ionicons } from 'react-native-vector-icons';
 const { height } = Dimensions.get('window');
 
 // Modified snap positions - keeping the bottom position more visible
-const SNAP_POSITIONS = {
+export const SNAP_POSITIONS = {
   TOP: 0,
   MIDDLE: height * 0.4,
   BOTTOM: height * 0.85  // Adjusted to be less hidden (was 0.85)
 };
 
-const DraggableBottomSheet = ({ products, onProductSelect }) => {
+const DraggableBottomSheet = ({ products, onProductSelect, onPositionChange  }) => {
   const pan = useRef(new Animated.ValueXY({ x: 0, y: SNAP_POSITIONS.MIDDLE })).current;
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredProducts, setFilteredProducts] = useState(products);
@@ -79,7 +79,12 @@ const DraggableBottomSheet = ({ products, onProductSelect }) => {
           toValue: { x: 0, y: snapTo },
           useNativeDriver: false,
           friction: 8
-        }).start();
+        }).start(() => {
+          // Notify parent component about position change
+          if (onPositionChange) {
+            onPositionChange(snapTo);
+          }
+        });
       }
     })
   ).current;
@@ -176,9 +181,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: -3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
+    shadowOffset: { width: 0, height: -5 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
     elevation: 10,
     zIndex: 999,
   },
@@ -192,16 +197,17 @@ const styles = StyleSheet.create({
     width: 40,
     height: 5,
     borderRadius: 3,
-    backgroundColor: '#DEDEDE'
+    backgroundColor: 'rgb(196, 196, 196)'
   },
   content: {
     flex: 1,
-    padding: 16
+    paddingHorizontal: 16,
+    paddingVertical: 5
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: 'rgb(230, 230, 230)',
     borderRadius: 10,
     paddingHorizontal: 12,
     marginBottom: 16

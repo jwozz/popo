@@ -1,11 +1,18 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Dimensions, Animated } from 'react-native';
 import { Ionicons } from 'react-native-vector-icons';
 import { styles } from '../../styles/shopScreenStyles';
 
 const { width, height } = Dimensions.get('window');
 
-const VideoProductSection = ({ videoProducts, onProductPress }) => {
+// Define the bottom sheet snap positions (matching your bottom sheet component)
+const BOTTOM_SHEET_POSITIONS = {
+  TOP: 0,
+  MIDDLE: height * 0.4,
+  BOTTOM: height * 0.85
+};
+
+const VideoProductSection = ({ videoProducts, onProductPress, bottomSheetPosition = BOTTOM_SHEET_POSITIONS.MIDDLE }) => {
   if (!videoProducts || videoProducts.length === 0) {
     return null;
   }
@@ -65,6 +72,31 @@ const VideoProductSection = ({ videoProducts, onProductPress }) => {
                 }
               ]}
             >
+              {/* Seller Profile moved outside the video */}
+              <View style={styles.sellerProfileOuter}>
+                <View style={styles.sellerContainer}>
+                  <View style={styles.avatarContainer}>
+                    <Image
+                      source={{ uri: item.sellerAvatar }}
+                      style={styles.sellerAvatar}
+                      accessibilityLabel={`${item.sellerName}'s profile picture`}
+                    />
+                    {/* Follow button overlay on profile pic */}
+                    <TouchableOpacity style={styles.followButtonOverlay}>
+                      <Ionicons name="add" size={14} color="#26a69a" />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.sellerInfo}>
+                    <Text style={styles.sellerName}>{item.sellerName}</Text>
+                    <Text style={styles.sellerLocation}>{item.location}</Text>
+                  </View>
+                  {/* Vertical dots menu replacing follow button */}
+                  <TouchableOpacity style={styles.menuButton}>
+                    <Ionicons name="ellipsis-vertical" size={18} color="#888888" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+              
               {/* Video Card Component */}
               <VideoCard 
                 videoItem={item} 
@@ -93,10 +125,10 @@ const VideoProductSection = ({ videoProducts, onProductPress }) => {
                 
                 {/* Right side - Reaction icon with likes count */}
                 <View style={styles.reactionContainer}>
-                  <Text style={styles.likesCount}>{item.likeCount || 42}</Text>
                   <TouchableOpacity style={styles.reactionButton}>
                     <Ionicons name="heart-outline" size={24} color="#26a69a" />
                   </TouchableOpacity>
+                  <Text style={styles.likesCount}>{item.likeCount || 42}</Text>
                 </View>
               </View>
             </Animated.View>
@@ -108,8 +140,11 @@ const VideoProductSection = ({ videoProducts, onProductPress }) => {
 };
 
 const VideoCard = ({ videoItem, onProductPress, width, height, opacity }) => {
-  // Calculate base card height to ensure everything fits
-  const baseCardHeight = Math.min(height * 0.65, 450);
+  // Calculate max card height based on bottom sheet position
+  // We need to subtract the position of the bottom sheet from the screen height
+  // and leave some space for the profile and footer elements
+  const maxAvailableHeight = height - BOTTOM_SHEET_POSITIONS.MIDDLE - 100; // 100px for profile and footer
+  const baseCardHeight = Math.min(maxAvailableHeight, 450);
   
   // Use animation values for dynamic styling
   const cardStyle = {
@@ -159,24 +194,6 @@ const VideoCard = ({ videoItem, onProductPress, width, height, opacity }) => {
           <Ionicons name="play-circle" size={40} color="#ffffff" />
         </TouchableOpacity>
         
-        {/* Seller Profile */}
-        <View style={styles.sellerOverlay}>
-          <View style={styles.sellerContainer}>
-            <Image
-              source={{ uri: videoItem.sellerAvatar }}
-              style={styles.sellerAvatar}
-              accessibilityLabel={`${videoItem.sellerName}'s profile picture`}
-            />
-            <View style={styles.sellerInfo}>
-              <Text style={styles.sellerName}>{videoItem.sellerName}</Text>
-              <Text style={styles.sellerLocation}>{videoItem.location}</Text>
-            </View>
-            <TouchableOpacity style={styles.followButton}>
-              <Text style={styles.followText}>Follow</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        
         {/* Products with Reply Feature */}
         <View style={styles.productsOverlay}>
           <ScrollView
@@ -199,24 +216,26 @@ const VideoCard = ({ videoItem, onProductPress, width, height, opacity }) => {
                     style={styles.videoProductThumbnail}
                     accessibilityLabel={product.name}
                   />
-                  {/* Reply Indicator */}
-                  <View style={styles.replyIndicator}> 
-                    <Ionicons name="chatbubble-outline" size={12} color="#ffffff" />
-                  </View>
                 </TouchableOpacity>
 
                 <View style={styles.productDetails}>
                   <Text style={styles.videoProductName} numberOfLines={1}>{product.name}</Text>
                   <View style={styles.priceActionContainer}>
                     <Text style={styles.videoProductPrice}>{product.price}</Text>
-                    <TouchableOpacity 
-                      style={styles.addToCartButton}
-                      onPress={() => onProductPress(product)}
-                      accessibilityLabel={`Add ${product.name} to cart`}
-                      accessibilityRole="button"
-                    >
+                    <View style={styles.shopButtons}>
+                      {/* Reply Indicator */}
+                      <View style={styles.replyIndicator}> 
+                        <Ionicons name="chatbubble-outline" size={16} color="#ffffff" />
+                      </View>
+                      <TouchableOpacity 
+                        style={styles.addToCartButton2}
+                        onPress={() => onProductPress(product)}
+                        accessibilityLabel={`Add ${product.name} to cart`}
+                        accessibilityRole="button"
+                      >
                       <Ionicons name="cart" size={16} color="#ffffff" />
-                    </TouchableOpacity>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
 
@@ -227,7 +246,7 @@ const VideoCard = ({ videoItem, onProductPress, width, height, opacity }) => {
                       <TouchableOpacity style={styles.closeReplyButton} onPress={() => setReplyingToProductId(null)}>
                         <Ionicons name="close-outline" size={16} color="#ffffff" />
                       </TouchableOpacity>
-                      <Text style={styles.replyPlaceholder}>Reply to this product...</Text>
+                      <Text style={styles.replyPlaceholder}>Reply...</Text>
                       <TouchableOpacity style={styles.sendReplyButton}>
                         <Ionicons name="send-outline" size={16} color="#26a69a" />
                       </TouchableOpacity>

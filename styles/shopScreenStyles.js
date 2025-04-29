@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     marginVertical: 10,
     paddingHorizontal: 15,
     height: 46,
-    marginTop: 80
+    marginTop: 80,
   },
   searchIcon: {
     marginRight: 8,
@@ -55,17 +55,17 @@ export const styles = StyleSheet.create({
     color: '#ffffff',
     fontWeight: '500',
   },
+
 // Updated styles for the shopScreenStyles.js file
   sectionContainer: {
     marginVertical: 15,
-    marginTop: 70,
     paddingHorizontal: 20,
     paddingRight: 0
   },
   sectionTitle: {
-    fontSize: 17,
-    fontWeight: '600',
-    marginBottom: 15,
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: 'rgb(126, 131, 141)',
   },
   cardWrapper: {
     marginRight: 20,
@@ -74,13 +74,14 @@ export const styles = StyleSheet.create({
     transformOrigin: 'center center',
   },
   videoCard: {
-    borderRadius: 12,
-    overflow: 'hidden',
-    shadowColor: 'grey',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+  borderRadius: 12,
+  overflow: 'hidden',
+  shadowColor: 'grey',
+  shadowOffset: { width: 0, height: 1 },
+  shadowOpacity: 0.1,
+  shadowRadius: 2,
+  elevation: 2,
+  marginTop: 0,
   },
   videoContainer: {
     position: 'relative',
@@ -108,7 +109,7 @@ export const styles = StyleSheet.create({
   },
   sellerOverlay: {
     position: 'absolute',
-    top: 0,
+    top:-20,
     left: 0,
     right: 0,
     padding: 12,
@@ -120,12 +121,20 @@ export const styles = StyleSheet.create({
   sellerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: 8,
+    width: '100%',
+  },
+  avatarCage: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    paddingLeft: 10
   },
   sellerAvatar: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 40,
+    height: 40,
+    borderRadius: 40,
     marginRight: 8,
     borderWidth: 2,
     borderColor: '#ffffff',
@@ -136,26 +145,22 @@ export const styles = StyleSheet.create({
   sellerName: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#ffffff',
+    color: 'rgb(8, 8, 8)',
   },
   sellerLocation: {
     fontSize: 12,
-    color: '#e0e0e0',
+    color: 'rgb(112, 112, 112)',
   },
-  followButton: {
-    backgroundColor: '#26a69a',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  followText: {
-    color: '#ffffff',
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  
+  followButtonOverlay: {
+    position: 'absolute',
+    bottom: -5,
+    left: 20,
+    backgroundColor: 'white',
+    borderRadius: 50,
+    padding: 2,
+    borderWidth: 2,
+    borderColor: 'rgb(246, 246, 246)',
+  },  
   productsOverlay: {
     position: 'absolute',
     bottom: 0,
@@ -175,11 +180,14 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 6,
     marginRight: 8,
-    width: 180,
+    width: 120,
   },
   productImageContainer: {
     position: 'relative',
     marginBottom: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
   },
   videoProductThumbnail: {
     width: 60,
@@ -189,22 +197,13 @@ export const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.4)',
   },
   replyIndicator: {
-    position: 'absolute',
-    bottom: -4,
-    right: -4,
-    backgroundColor: 'rgba(38, 166, 154, 0.8)',
-    borderRadius: 10,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     justifyContent: 'center',
-  },
-  replyCount: {
-    color: '#ffffff',
-    fontSize: 10,
-    fontWeight: '600',
-    marginRight: 3,
+    alignItems: 'center',
+    marginRight: 5
   },
   productDetails: {
     flexDirection: 'row',
@@ -213,7 +212,7 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   videoProductName: {
-    fontSize: 12,
+    fontSize: 10,
     fontWeight: '600',
     color: '#ffffff',
     width: '100%',
@@ -229,9 +228,13 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     color: '#ffffff',
     fontWeight: '600',
+    marginRight: 8,
   },
-  addToCartButton: {
-    backgroundColor: '#26a69a',
+  shopButtons: {
+    flexDirection: 'row',
+  },
+  addToCartButton2: {
+    backgroundColor: 'rgba(255,255,255,0.3)',
     width: 30,
     height: 30,
     borderRadius: 15,
@@ -271,8 +274,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 8,
     paddingHorizontal: 4,
+    paddingRight: 0,
     width: '100%',
-    marginTop: 6,
+    marginTop: 0,
   },
   footerLeft: {
     flexDirection: 'row',
@@ -305,7 +309,7 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
     color: '#666666',
-    marginRight: 4,
+    marginRight: 5,
   },
   reactionButton: {
     padding: 5,

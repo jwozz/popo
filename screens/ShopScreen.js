@@ -11,6 +11,8 @@ import ProductModal from '../components/shop/ProductModal';
 import DraggableBottomSheet from '../components/shop/DraggableBottomSheet';
 import { videoProducts, featuredProducts } from '../data/shopData';
 import { styles } from '../styles/shopScreenStyles';
+import { SNAP_POSITIONS } from '../components/shop/DraggableBottomSheet'; 
+import AddShop from '../components/shop/AddShop';
 
 const ShopScreen = () => {
   const { colors } = useTheme();
@@ -24,6 +26,13 @@ const ShopScreen = () => {
     if (animatedFilterRef.current) {
       animatedFilterRef.current.handleScroll(event);
     }
+  };
+  // In your main screen component
+  const [bottomSheetPosition, setBottomSheetPosition] = useState(SNAP_POSITIONS.MIDDLE);
+
+  // Update this when the bottom sheet position changes
+  const handleBottomSheetPositionChange = (position) => {
+    setBottomSheetPosition(position);
   };
 
   const openProductModal = (product) => {
@@ -44,8 +53,6 @@ const ShopScreen = () => {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Header title="Shop" />
-      <AnimatedFilter ref={animatedFilterRef} />
-     
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scrollView}
@@ -53,9 +60,11 @@ const ShopScreen = () => {
         scrollEventThrottle={16}
       >
        
+        <AddShop />
         <VideoProductSection
           videoProducts={videoProducts}
           onProductPress={openProductModal}
+          bottomSheetPosition={bottomSheetPosition}
         />
                
         <View style={styles.spacer} />
@@ -71,6 +80,7 @@ const ShopScreen = () => {
       <DraggableBottomSheet 
         products={allProducts}
         onProductSelect={openProductModal}
+        onPositionChange={setBottomSheetPosition}
       />
     </View>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useTheme } from '../context/ThemeContext';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Antdesign from 'react-native-vector-icons/AntDesign';
 
 const Header = ({ title }) => {
   const { colors } = useTheme();
@@ -11,10 +12,10 @@ const Header = ({ title }) => {
       <Text style={styles.headerTitle}>{title}</Text>
       <View style={styles.headerIcons}>
         <TouchableOpacity style={styles.iconButton}>
-          <Icon name="search" size={24} color="rgb(94, 94, 94)" />
+          <Icon name="" size={24} color="rgb(94, 94, 94)" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.iconButton}>
-          <Icon name="more-vert" size={24} color="rgb(94, 94, 94)" />
+          <Antdesign name="user" size={24} color="rgb(94, 94, 94)" />
         </TouchableOpacity>
       </View>
     </View>
