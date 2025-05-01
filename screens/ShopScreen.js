@@ -12,7 +12,6 @@ import DraggableBottomSheet from '../components/shop/DraggableBottomSheet';
 import { videoProducts, featuredProducts } from '../data/shopData';
 import { styles } from '../styles/shopScreenStyles';
 import { SNAP_POSITIONS } from '../components/shop/DraggableBottomSheet'; 
-import AddShop from '../components/shop/AddShop';
 
 const ShopScreen = () => {
   const { colors } = useTheme();
@@ -52,7 +51,7 @@ const ShopScreen = () => {
   
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Header title="Shop" />
+      <Header title="App" />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.scrollView}
@@ -60,7 +59,6 @@ const ShopScreen = () => {
         scrollEventThrottle={16}
       >
        
-        <AddShop />
         <VideoProductSection
           videoProducts={videoProducts}
           onProductPress={openProductModal}

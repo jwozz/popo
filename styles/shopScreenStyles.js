@@ -65,13 +65,14 @@ export const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: 'rgb(126, 131, 141)',
+    color: 'rgb(153, 153, 153)',
   },
   cardWrapper: {
     marginRight: 20,
     alignItems: 'center',
     paddingVertical: 10,
     transformOrigin: 'center center',
+    marginTop: 20
   },
   videoCard: {
   borderRadius: 12,
@@ -132,30 +133,32 @@ export const styles = StyleSheet.create({
     paddingLeft: 10
   },
   sellerAvatar: {
-    width: 40,
-    height: 40,
+    width: 47,
+    height: 47,
     borderRadius: 40,
     marginRight: 8,
     borderWidth: 2,
-    borderColor: '#ffffff',
+    borderColor: 'rgb(246, 246, 246)',
   },
   sellerInfo: {
     flex: 1,
   },
   sellerName: {
     fontSize: 14,
-    fontWeight: '600',
-    color: 'rgb(8, 8, 8)',
+    fontWeight: 'bold',
+    color: '#26a69a',
   },
   sellerLocation: {
     fontSize: 12,
-    color: 'rgb(112, 112, 112)',
+    color: 'rgb(136, 136, 136)',
+    fontWeight: '500'
   },
   followButtonOverlay: {
     position: 'absolute',
-    bottom: -5,
-    left: 20,
-    backgroundColor: 'white',
+    bottom: -4,
+    left: 25,
+    backgroundColor: '#26a69a',
+    backgroundColor: 'rgb(85, 94, 104)',
     borderRadius: 50,
     padding: 2,
     borderWidth: 2,
@@ -166,21 +169,25 @@ export const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 12,
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    padding: 10,
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
     zIndex: 5,
   },
   videoProductsList: {
     paddingRight: 10,
+    alignItems: 'flex-end'
   },
   videoProductItem: {
-    flexDirection: 'column', // Changed to column to stack reply input
+    flexDirection: 'column', 
     borderRadius: 8,
     padding: 6,
     marginRight: 8,
     width: 120,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  productMainContent: {
+    height: 120,
   },
   productImageContainer: {
     position: 'relative',
@@ -190,8 +197,8 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   videoProductThumbnail: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     borderRadius: 6,
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.4)',
@@ -272,7 +279,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 5,
     paddingHorizontal: 4,
     paddingRight: 0,
     width: '100%',
@@ -285,21 +292,21 @@ export const styles = StyleSheet.create({
   profileThumbnails: {
     flexDirection: 'row',
     marginRight: 8,
-    width: 46,
   },
   commentThumbnail: {
-    width: 28,
-    height: 28,
+    width: 20,
+    height: 20,
     borderRadius: 14,
     borderWidth: 1.5,
-    borderColor: '#ffffff',
+    borderColor: 'rgb(246, 246, 246)',
   },
   commentThumbnailOverlap: {
     marginLeft: -10,
   },
   commentCount: {
     fontSize: 12,
-    color: '#666666',
+    color: 'rgb(136, 136, 136)',
+    fontWeight: '500',
   },
   reactionContainer: {
     flexDirection: 'row',
@@ -308,8 +315,7 @@ export const styles = StyleSheet.create({
   likesCount: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#666666',
-    marginRight: 5,
+    color: 'rgb(136, 136, 136)',
   },
   reactionButton: {
     padding: 5,

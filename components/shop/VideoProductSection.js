@@ -83,7 +83,7 @@ const VideoProductSection = ({ videoProducts, onProductPress, bottomSheetPositio
                     />
                     {/* Follow button overlay on profile pic */}
                     <TouchableOpacity style={styles.followButtonOverlay}>
-                      <Ionicons name="add" size={14} color="#26a69a" />
+                      <Ionicons name="add" size={13} color="white" />
                     </TouchableOpacity>
                   </View>
                   <View style={styles.sellerInfo}>
@@ -92,7 +92,7 @@ const VideoProductSection = ({ videoProducts, onProductPress, bottomSheetPositio
                   </View>
                   {/* Vertical dots menu replacing follow button */}
                   <TouchableOpacity style={styles.menuButton}>
-                    <Ionicons name="ellipsis-vertical" size={18} color="#888888" />
+                    <Ionicons name="ellipsis-horizontal" size={17} color="rgb(136, 136, 136)" />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -126,7 +126,7 @@ const VideoProductSection = ({ videoProducts, onProductPress, bottomSheetPositio
                 {/* Right side - Reaction icon with likes count */}
                 <View style={styles.reactionContainer}>
                   <TouchableOpacity style={styles.reactionButton}>
-                    <Ionicons name="heart-outline" size={24} color="#26a69a" />
+                    <Ionicons name="heart-outline" size={20} color="rgb(136, 136, 136)" />
                   </TouchableOpacity>
                   <Text style={styles.likesCount}>{item.likeCount || 42}</Text>
                 </View>
@@ -143,7 +143,7 @@ const VideoCard = ({ videoItem, onProductPress, width, height, opacity }) => {
   // Calculate max card height based on bottom sheet position
   // We need to subtract the position of the bottom sheet from the screen height
   // and leave some space for the profile and footer elements
-  const maxAvailableHeight = height - BOTTOM_SHEET_POSITIONS.MIDDLE - 100; // 100px for profile and footer
+  const maxAvailableHeight = height - BOTTOM_SHEET_POSITIONS.MIDDLE - 30; // 100px for profile and footer
   const baseCardHeight = Math.min(maxAvailableHeight, 450);
   
   // Use animation values for dynamic styling
@@ -203,42 +203,49 @@ const VideoCard = ({ videoItem, onProductPress, width, height, opacity }) => {
             nestedScrollEnabled={true}
           >
             {videoItem.products.map(product => (
-              <View key={product.id} style={styles.videoProductItem}>
-                {/* Product Image with Interactive Overlay */}
-                <TouchableOpacity 
-                  onPress={() => setReplyingToProductId(
-                    replyingToProductId === product.id ? null : product.id
-                  )}
-                  style={styles.productImageContainer}
-                >
-                  <Image
-                    source={{ uri: product.imageUrl }}
-                    style={styles.videoProductThumbnail}
-                    accessibilityLabel={product.name}
-                  />
-                </TouchableOpacity>
-
-                <View style={styles.productDetails}>
-                  <Text style={styles.videoProductName} numberOfLines={1}>{product.name}</Text>
-                  <View style={styles.priceActionContainer}>
-                    <Text style={styles.videoProductPrice}>{product.price}</Text>
-                    <View style={styles.shopButtons}>
-                      {/* Reply Indicator */}
-                      <View style={styles.replyIndicator}> 
-                        <Ionicons name="chatbubble-outline" size={16} color="#ffffff" />
+              <View 
+                key={product.id} 
+                style={[
+                  styles.videoProductItem,
+                  { height: replyingToProductId === product.id ? 'auto' : 120 } // Fixed height for collapsed items
+                ]}
+              >
+                <View style={styles.productMainContent}>
+                  {/* Product Image with Interactive Overlay */}
+                  <TouchableOpacity
+                    onPress={() => setReplyingToProductId(
+                      replyingToProductId === product.id ? null : product.id
+                    )}
+                    style={styles.productImageContainer}
+                  >
+                    <Image
+                      source={{ uri: product.imageUrl }}
+                      style={styles.videoProductThumbnail}
+                      accessibilityLabel={product.name}
+                    />
+                  </TouchableOpacity>
+                  <View style={styles.productDetails}>
+                    <Text style={styles.videoProductName} numberOfLines={1}>{product.name}</Text>
+                    <View style={styles.priceActionContainer}>
+                      <Text style={styles.videoProductPrice}>{product.price}</Text>
+                      <View style={styles.shopButtons}>
+                        {/* Reply Indicator */}
+                        <View style={styles.replyIndicator}>
+                          <Ionicons name="chatbubble-outline" size={16} color="#ffffff" />
+                        </View>
+                        <TouchableOpacity
+                          style={styles.addToCartButton2}
+                          onPress={() => onProductPress(product)}
+                          accessibilityLabel={`Add ${product.name} to cart`}
+                          accessibilityRole="button"
+                        >
+                          <Ionicons name="cart" size={16} color="#ffffff" />
+                        </TouchableOpacity>
                       </View>
-                      <TouchableOpacity 
-                        style={styles.addToCartButton2}
-                        onPress={() => onProductPress(product)}
-                        accessibilityLabel={`Add ${product.name} to cart`}
-                        accessibilityRole="button"
-                      >
-                      <Ionicons name="cart" size={16} color="#ffffff" />
-                      </TouchableOpacity>
                     </View>
                   </View>
                 </View>
-
+                
                 {/* Reply Input that shows when product is selected */}
                 {replyingToProductId === product.id && (
                   <View style={styles.productReplyContainer}>
